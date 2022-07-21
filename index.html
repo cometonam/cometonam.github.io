@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Safira random teams </title>
+    <title>Safira Football Teams Split </title>
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 
@@ -91,11 +91,19 @@
             }
         });
 
-        var $list = $("ul[data-role='listview']").listview({
+        var $list = $("ul#left-members").listview({
             editable: true,
             //editableType: "simple",
             collapsed: false,
             title: "Left Members",
+            emptyTitle: "No Members"
+        });
+
+        var $list = $("ul#right-members").listview({
+            editable: true,
+            //editableType: "simple",
+            collapsed: false,
+            title: "Right Members",
             emptyTitle: "No Members"
         });
 
