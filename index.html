@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Safira random teams </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.css" />
+    <link rel="stylesheet" href="css/editable-listview.css">
+    <link rel="stylesheet" href="css/demo.css">
+
+    <script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.js"></script>
+    <!-- <script src="js/collapsible-patched.js"></script> -->
+    <script src="js/editable-listview.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row mt-2">
+            <div class="col">
+                <ul id="left-members" data-role="listview">
+                    <li>Remove Me</li>
+                </ul>
+            </div>
+            <div class="col-6">
+                <div class="container">
+                    <div class="row">
+                        <button type="button" id="btn-slit" class="btn btn-success">Team Split</button>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col pl-0">
+                            <ul class="list-group" id="teamone">
+                                <li class="list-group-item active">Team One</li>
+                            </ul>
+                        </div>
+                        <div class="col pr-0">
+                            <ul class="list-group" id="teamtwo">
+                                <li class="list-group-item active">Team Two</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <ul id="right-members" data-role="listview">
+                    <li>Remove Me</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $("button#btn-slit").click((e) => {
+            var leftCount = $('ul#left-members li').not(".ui-editable-temp").length;
+            var rightCount = $('ul#right-members li').not(".ui-editable-temp").length;
+            var minCount = leftCount > rightCount ? rightCount : leftCount;
+            var leftMembers = [];
+            var rightMembers = [];
+            var randomNumber = 0;
+            $('ul#teamone li, ul#teamtwo li').not('.active').remove();
+
+            $('ul#left-members li').not(".ui-editable-temp").each(function (index) {
+                //console.log(index + ": " + $(this).text());
+                leftMembers.push($(this).text());
+            });
+            $('ul#right-members li').not(".ui-editable-temp").each(function (index) {
+                //console.log(index + ": " + $(this).text());
+                rightMembers.push($(this).text());
+            });
+
+            for (var i = 0; i < minCount; i++) {
+                //console.log("Left: " + leftMembers[i] + " Right: " + rightMembers[i]);
+                randomNumber = getRandomInt(0, 10);
+                if (randomNumber < 5) {
+                    //var item = "<li class='list-group-item'>" + leftMembers[i] + "</li>"
+                    $('ul#teamone').append("<li class='list-group-item'>" + leftMembers[i] + "</li>");
+                    $('ul#teamtwo').append("<li class='list-group-item'>" + rightMembers[i] + "</li>");
+                }
+                else {
+                    $('ul#teamone').append("<li class='list-group-item'>" + rightMembers[i] + "</li>");
+                    $('ul#teamtwo').append("<li class='list-group-item'>" + leftMembers[i] + "</li>");
+                }
+            }
+        });
+
+        var $list = $("ul[data-role='listview']").listview({
+            editable: true,
+            //editableType: "simple",
+            collapsed: false,
+            title: "Left Members",
+            emptyTitle: "No Members"
+        });
+
+        // Returns a random integer between min (included) and max (excluded)
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+    </script>
+</body>
+
+</html>
