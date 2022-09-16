@@ -22,6 +22,10 @@
     <script src="js/jquery.mobile.js"></script>
     <script src="js/editable-listview.js"></script>
     <script src="js/spectrum.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="css/jquery-ui.css">
+
+
 </head>
 
 <body>
@@ -35,6 +39,7 @@
             <div class="col-6">
                 <div class="container">
                     <div class="row">
+                        <button type="button" id="btn-import" class="btn btn-success">Import</button>
                         <button type="button" id="btn-slit" class="btn btn-success">Team Split</button>
                     </div>
                     <div class="row">
@@ -100,7 +105,64 @@
         $(function () {
             // Handler for .ready() called.
             $('#shirt-one, #shirt-two').css({ 'fill': "#FFF" });
+            $("#import-dialog").dialog({
+                draggable: false,
+                resizable: false,
+                modal: true,
+                dialogClass: "alert",
+                autoOpen: false,
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                },
+                classes: {
+                    "ui-dialog": "dialog-body",
+                    "ui-dialog-titlebar": "dialog-title"
+                },
+                buttons: {
+                    "Import": function () {
+                        var players = $("#players").val();
+                        players = $.trim(players)
+                        if (players.length > 0 && players.indexOf('-') > 0) {
+                            $("button.ui-btn-right").click();
+                            $('a.ui-editable-btn-del').click();
+
+                            $.each(players.split(/\n/), function (index, item) {
+                                var pair = item.split('-');
+                                $("ul#left-members li:first input[type=text]").val(pair[0]);
+                                $("ul#right-members li:first input[type=text]").val(pair[1]);
+                                $("a#item-add").tap();
+
+                            });
+                            $("button.ui-btn-right").click();
+                            $(this).dialog("close");
+                        }
+                        else {
+                            alert('The data import is invalid!');
+                        }
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                },
+                open: function (event, ui) {
+                    $("#players").css("height", "90%");
+
+                },
+                height: 400,
+                maxHeight: 600,
+                closeOnEscape: true
+            });
         });
+
+        $("#btn-import").on("click", function () {
+            $("#import-dialog").dialog("open");
+        });
+
         $('#shirt-one, #shirt-two').spectrum({
             type: "component",
             preferredFormat: "rgb",
@@ -164,6 +226,9 @@
             return Math.floor(Math.random() * (max - min)) + min;
         }
     </script>
+    <div id="import-dialog" title="Import player">
+        <textarea id="players" class="form-control" rows="20" placeholder="Players"></textarea>
+    </div>
 </body>
 
 </html>
