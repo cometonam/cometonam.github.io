@@ -40,7 +40,7 @@
                 <div class="container">
                     <div class="row">
                         <button type="button" id="btn-import" class="btn btn-success">Import</button>
-                        <button type="button" id="btn-slit" class="btn btn-success">Team Split</button>
+                        <button type="button" id="btn-split" class="btn btn-success">Team Split</button>
                     </div>
                     <div class="row">
                         <div class="col pl-0">
@@ -172,7 +172,7 @@
             }
         });
 
-        $("button#btn-slit").click((e) => {
+        $("button#btn-split").click((e) => {
             var leftCount = $('ul#left-members li').not(".ui-editable-temp").length;
             var rightCount = $('ul#right-members li').not(".ui-editable-temp").length;
             var minCount = leftCount > rightCount ? rightCount : leftCount;
@@ -190,19 +190,48 @@
                 rightMembers.push($(this).text());
             });
 
+            // Random Goal keeper
+            var goal1 = getRandomInt(0, minCount - 1);
+            var goal2 = getRandomInt(0, minCount - 1);
+            console.log("goal1:" + goal1);
+            console.log("goal2:" + goal2);
+            console.log("minCount:" + minCount);
+
             for (var i = 0; i < minCount; i++) {
                 //console.log("Left: " + leftMembers[i] + " Right: " + rightMembers[i]);
                 randomNumber = getRandomInt(0, 10);
                 if (randomNumber < 5) {
-                    //var item = "<li class='list-group-item'>" + leftMembers[i] + "</li>"
-                    $('ul#teamone').append("<li class='list-group-item'>" + leftMembers[i] + "</li>");
-                    $('ul#teamtwo').append("<li class='list-group-item'>" + rightMembers[i] + "</li>");
+                    if (goal1 == i) {
+                        $('ul#teamone').append("<li class='list-group-item goal-keeper'>" + leftMembers[i] + "</li>");
+                    }
+                    else {
+                        $('ul#teamone').append("<li class='list-group-item'>" + leftMembers[i] + "</li>");
+                    }
+
+                    if (goal2 == i) {
+                        $('ul#teamtwo').append("<li class='list-group-item goal-keeper'>" + rightMembers[i] + "</li>");
+                    }
+                    else {
+                        $('ul#teamtwo').append("<li class='list-group-item'>" + rightMembers[i] + "</li>");
+                    }
                 }
                 else {
-                    $('ul#teamone').append("<li class='list-group-item'>" + rightMembers[i] + "</li>");
-                    $('ul#teamtwo').append("<li class='list-group-item'>" + leftMembers[i] + "</li>");
+                    if (goal1 == i) {
+                        $('ul#teamone').append("<li class='list-group-item goal-keeper'>" + rightMembers[i] + "</li>");
+                    }
+                    else {
+                        $('ul#teamone').append("<li class='list-group-item'>" + rightMembers[i] + "</li>");
+                    }
+
+                    if (goal2 == i) {
+                        $('ul#teamtwo').append("<li class='list-group-item goal-keeper'>" + leftMembers[i] + "</li>");
+                    }
+                    else {
+                        $('ul#teamtwo').append("<li class='list-group-item'>" + leftMembers[i] + "</li>");
+                    }
                 }
             }
+
         });
 
         var $list = $("ul#left-members").listview({

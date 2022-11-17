@@ -19,3 +19,7 @@ body {
 .ui-dialog-titlebar-close {
     visibility: hidden !important;
 }
+
+.goal-keeper {
+    background-color: orange;
+}
