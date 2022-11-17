@@ -191,47 +191,69 @@
             });
 
             // Random Goal keeper
-            var goal1 = getRandomInt(0, minCount - 1);
-            var goal2 = getRandomInt(0, minCount - 1);
-            console.log("goal1:" + goal1);
-            console.log("goal2:" + goal2);
-            console.log("minCount:" + minCount);
+            var goal11 = getRandomInt(0, minCount);
+            var goal21 = getRandomInt(0, minCount);
+            var goal12 = goal11;
+            var goal22 = goal21;
+            while (goal11 == goal12) {
+                goal12 = getRandomInt(0, minCount);
+            }
+            while (goal21 == goal22) {
+                goal22 = getRandomInt(0, minCount);
+            }
+
+            // console.log("goal11:" + goal11);
+            // console.log("goal12:" + goal12);
+            // console.log("goal21:" + goal21);
+            // console.log("goal22:" + goal22);
+            // console.log("minCount:" + minCount);
 
             for (var i = 0; i < minCount; i++) {
                 //console.log("Left: " + leftMembers[i] + " Right: " + rightMembers[i]);
                 randomNumber = getRandomInt(0, 10);
                 if (randomNumber < 5) {
-                    if (goal1 == i) {
-                        $('ul#teamone').append("<li class='list-group-item goal-keeper'>" + leftMembers[i] + "</li>");
+                    if (goal11 == i) {
+                        $('ul#teamone').append("<li class='list-group-item goal-keeper'>" + leftMembers[i] + " (Goalkeeper 1)</li>");
+                    }
+                    else if (goal12 == i) {
+                        $('ul#teamone').append("<li class='list-group-item goal-keeper'>" + leftMembers[i] + " (Goalkeeper 2)</li>");
                     }
                     else {
                         $('ul#teamone').append("<li class='list-group-item'>" + leftMembers[i] + "</li>");
                     }
 
-                    if (goal2 == i) {
-                        $('ul#teamtwo').append("<li class='list-group-item goal-keeper'>" + rightMembers[i] + "</li>");
+                    if (goal21 == i) {
+                        $('ul#teamtwo').append("<li class='list-group-item goal-keeper'>" + rightMembers[i] + " (Goalkeeper 1)</li>");
+                    }
+                    else if (goal22 == i) {
+                        $('ul#teamtwo').append("<li class='list-group-item goal-keeper'>" + rightMembers[i] + " (Goalkeeper 2)</li>");
                     }
                     else {
                         $('ul#teamtwo').append("<li class='list-group-item'>" + rightMembers[i] + "</li>");
                     }
                 }
                 else {
-                    if (goal1 == i) {
-                        $('ul#teamone').append("<li class='list-group-item goal-keeper'>" + rightMembers[i] + "</li>");
+                    if (goal11 == i) {
+                        $('ul#teamone').append("<li class='list-group-item goal-keeper'>" + rightMembers[i] + " (Goalkeeper 1)</li>");
+                    }
+                    else if (goal12 == i) {
+                        $('ul#teamone').append("<li class='list-group-item goal-keeper'>" + rightMembers[i] + " (Goalkeeper 2)</li>");
                     }
                     else {
                         $('ul#teamone').append("<li class='list-group-item'>" + rightMembers[i] + "</li>");
                     }
 
-                    if (goal2 == i) {
-                        $('ul#teamtwo').append("<li class='list-group-item goal-keeper'>" + leftMembers[i] + "</li>");
+                    if (goal21 == i) {
+                        $('ul#teamtwo').append("<li class='list-group-item goal-keeper'>" + leftMembers[i] + "  (Goalkeeper 1)</li>");
+                    }
+                    else if (goal22 == i) {
+                        $('ul#teamtwo').append("<li class='list-group-item goal-keeper'>" + leftMembers[i] + "  (Goalkeeper 2)</li>");
                     }
                     else {
                         $('ul#teamtwo').append("<li class='list-group-item'>" + leftMembers[i] + "</li>");
                     }
                 }
             }
-
         });
 
         var $list = $("ul#left-members").listview({
