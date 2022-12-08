@@ -184,11 +184,9 @@
             $('ul#teamone li, ul#teamtwo li').not('.active').remove();
 
             $('ul#left-members li').not(".ui-editable-temp").each(function (index) {
-                //console.log(index + ": " + $(this).text());
                 leftMembers.push($(this).text());
             });
             $('ul#right-members li').not(".ui-editable-temp").each(function (index) {
-                //console.log(index + ": " + $(this).text());
                 rightMembers.push($(this).text());
             });
 
@@ -204,16 +202,9 @@
                 goal22 = getRandomInt(0, minCount);
             }
 
-            // console.log("goal11:" + goal11);
-            // console.log("goal12:" + goal12);
-            // console.log("goal21:" + goal21);
-            // console.log("goal22:" + goal22);
-            // console.log("minCount:" + minCount);
-
             for (var i = 0; i < minCount; i++) {
-                //console.log("Left: " + leftMembers[i] + " Right: " + rightMembers[i]);
-                randomNumber = getRandomInt(0, 10);
-                if (randomNumber < 5) {
+                randomNumber = getRandomInt(1, 3);
+                if (randomNumber == 1) {
                     if (goal11 == i) {
                         $('ul#teamone').append("<li class='list-group-item goal-keeper'>" + leftMembers[i] + " (Goalkeeper 1)</li>");
                     }
